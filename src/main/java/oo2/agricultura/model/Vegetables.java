@@ -13,8 +13,12 @@ public class Vegetables extends Ingredient {
     @Column(name = "properties", nullable = false)
     private String  properties;
 
-    public Vegetables(String name, String properties) {
+    @Column(name = "link_to_wikipedia", nullable = false)
+    private String linkToWikipedia;
+
+    public Vegetables(String name, String properties, String linkToWikipedia) {
         super(name);
+        this.linkToWikipedia = linkToWikipedia;
         this.properties = properties;
     }
 
@@ -22,6 +26,16 @@ public class Vegetables extends Ingredient {
 
     }
 
+    public String getLinkToWikipedia() {
+        return linkToWikipedia;
+    }
+
+    public void setLinkToWikipedia(String linkToWikipedia) {
+        this.linkToWikipedia = linkToWikipedia;
+    }
+
+    public Vegetables(String s) {
+    }
     public Long getId() {
         return id;
     }

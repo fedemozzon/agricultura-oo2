@@ -3,7 +3,8 @@ package oo2.agricultura.model;
 import javax.persistence.*;
 
 
-import java.util.List;@Table(name = "Ingredients")
+import java.util.List;
+@Table(name = "Ingredients")
 @Entity
 public class Ingredient {
     @Id
