@@ -13,7 +13,7 @@ public class Vegetables extends Ingredient {
     @Column(name = "properties", nullable = false)
     private String  properties;
 
-    @Column(name = "link_to_wikipedia", nullable = false)
+    @Column(name = "linkToWikipedia", nullable = false)
     private String linkToWikipedia;
 
     public Vegetables(String name, String properties, String linkToWikipedia) {

@@ -15,16 +15,4 @@ public class AgriculturaApplication {
         SpringApplication.run(AgriculturaApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner run(VegetablesRepository repository){
-        return (args) -> {
-            insertAVeggie(repository);
-        };
-    }
-
-    private void insertAVeggie(VegetablesRepository repository){
-        repository.save(new Vegetables("Zanahoria", "Bueno para la vista","www.wikipedia.com"));
-
-    }
-
 }

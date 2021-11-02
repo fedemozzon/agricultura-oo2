@@ -7,6 +7,6 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: oo2
+      MYSQL_DATABASE: agricultura
       MYSQL_ROOT_HOST: "%"
     command: --lower_case_table_names=1

@@ -14,10 +14,6 @@ class AgriculturaApplicationTests {
     @Test
     void contextLoads() {
     }
-
-    @Test
-    void creationTest() {
-
-    }
+    
 
 }

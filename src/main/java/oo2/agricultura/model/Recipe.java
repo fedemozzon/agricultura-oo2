@@ -13,12 +13,23 @@ public class Recipe  extends  Ingredient{
     private Long id;
     @OneToMany
     private List<Ingredient> ingredientes;
-    public Recipe(List ing) {
-        this.ingredientes = ing;
+
+    public Recipe(String name, List<Ingredient> ingredientes) {
+        super(name);
+        this.ingredientes = ingredientes;
     }
 
     public Recipe() {
 
+    }
+
+    public List<Ingredient> getIngredientes() {
+        return ingredientes;
+    }
+
+    @Override
+    public String getName() {
+        return super.getName();
     }
 
     public Long getId() {

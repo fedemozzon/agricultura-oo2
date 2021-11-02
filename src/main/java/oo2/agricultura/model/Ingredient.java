@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 
 import java.util.List;
-@Table(name = "Ingredients")
+ @Table(name = "Ingredients")
 @Entity
 public class Ingredient {
     @Id
@@ -26,12 +26,11 @@ public class Ingredient {
 
     }
 
+     public String getName() {
+         return name;
+     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Ingredient(String name) {
+     public Ingredient(String name) {
         this.name = name;
     }
 }
