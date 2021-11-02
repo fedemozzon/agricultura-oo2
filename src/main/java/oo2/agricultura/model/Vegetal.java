@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Table(name = "vegetables")
 @Entity
-public class Vegetables extends Ingredient {
+public class Vegetal extends Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -16,13 +16,13 @@ public class Vegetables extends Ingredient {
     @Column(name = "linkToWikipedia", nullable = false)
     private String linkToWikipedia;
 
-    public Vegetables(String name, String properties, String linkToWikipedia) {
+    public Vegetal(String name, String properties, String linkToWikipedia) {
         super(name);
         this.linkToWikipedia = linkToWikipedia;
         this.properties = properties;
     }
 
-    public Vegetables() {
+    public Vegetal() {
 
     }
 
@@ -34,8 +34,6 @@ public class Vegetables extends Ingredient {
         this.linkToWikipedia = linkToWikipedia;
     }
 
-    public Vegetables(String s) {
-    }
     public Long getId() {
         return id;
     }

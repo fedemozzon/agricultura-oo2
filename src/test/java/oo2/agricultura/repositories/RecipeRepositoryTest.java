@@ -1,7 +1,7 @@
 package oo2.agricultura.repositories;
 
 import oo2.agricultura.model.Recipe;
-import oo2.agricultura.model.Vegetables;
+import oo2.agricultura.model.Vegetal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +15,14 @@ import java.util.Optional;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class RecipeRepositoryTest {
-    
+
     @Autowired
     private RecipeRepository recipeRepository;
-    @Autowired
-    private VegetablesRepository vegetablesRepository;
-    
+
     @Test
     void recipeWithIngredients() {
-        Vegetables veg1 = new Vegetables("Lechuga","Hace bien a la digestion","https://es.wikipedia.org/wiki/Lactuca_sativa");
-        Vegetables veg2 = new Vegetables("Zanahoria","Buena para la vista","https://es.wikipedia.org/wiki/Daucus_carota");
+        Vegetal veg1 = new Vegetal("Lechuga","Hace bien a la digestion","https://es.wikipedia.org/wiki/Lactuca_sativa");
+        Vegetal veg2 = new Vegetal("Zanahoria","Buena para la vista","https://es.wikipedia.org/wiki/Daucus_carota");
         List ingredients = new ArrayList();
         ingredients.add(veg1);
         ingredients.add(veg2);
