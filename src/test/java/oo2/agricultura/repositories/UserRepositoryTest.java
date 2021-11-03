@@ -39,6 +39,5 @@ class UserRepositoryTest {
         Assertions.assertEquals("genericUserName",user1.get().getUsername());
         Assertions.assertEquals("genericMail@gmail.com",user1.get().getMail());
         Assertions.assertTrue(user1.get().getStrategy() instanceof InfoStrategy);
-
     }
 }
