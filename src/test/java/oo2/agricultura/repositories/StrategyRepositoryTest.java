@@ -14,27 +14,27 @@ import java.util.Optional;
 class StrategyRepositoryTest {
 
     @Autowired
-    private RecipeRepository recipeRepository;
+    private StrategyRepository strategyRepository;
 
     @Test
     void createRecipeStrategy() {
         RecipeStrategy recipeStrategy = new RecipeStrategy();
-        recipeRepository.save(recipeStrategy);
-        Optional<RecipeStrategy> recipeStrategyPersist = recipeRepository.findById(recipeStrategy.getId());
+        strategyRepository.save(recipeStrategy);
+        Optional<RecipeStrategy> recipeStrategyPersist = strategyRepository.findById(recipeStrategy.getId());
         Assertions.assertEquals(2,recipeStrategyPersist.get().suggestions().size());
     }
     @Test
     void createInfoStrategy() {
         InfoStrategy recipeStrategy = new InfoStrategy();
-        recipeRepository.save(recipeStrategy);
-        Optional<InfoStrategy> recipeStrategyPersist = recipeRepository.findById(recipeStrategy.getId());
+        strategyRepository.save(recipeStrategy);
+        Optional<InfoStrategy> recipeStrategyPersist = strategyRepository.findById(recipeStrategy.getId());
         Assertions.assertEquals(2,recipeStrategyPersist.get().suggestions().size());
     }
     @Test
     void createMixStrategy() {
         MixStrategy recipeStrategy = new MixStrategy();
-        recipeRepository.save(recipeStrategy);
-        Optional<MixStrategy> recipeStrategyPersist = recipeRepository.findById(recipeStrategy.getId());
+        strategyRepository.save(recipeStrategy);
+        Optional<MixStrategy> recipeStrategyPersist = strategyRepository.findById(recipeStrategy.getId());
         Assertions.assertEquals(4,recipeStrategyPersist.get().suggestions().size());
     }
 }

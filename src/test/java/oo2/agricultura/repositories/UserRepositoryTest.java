@@ -15,7 +15,7 @@ import java.util.Optional;
 class UserRepositoryTest {
 
     @Autowired
-    private RecipeRepository userRepository;
+    private UserRepository userRepository;
 
     @Test
     void userWithStrategy() {
@@ -39,5 +39,36 @@ class UserRepositoryTest {
         Assertions.assertEquals("genericUserName",user1.get().getUsername());
         Assertions.assertEquals("genericMail@gmail.com",user1.get().getMail());
         Assertions.assertTrue(user1.get().getStrategy() instanceof InfoStrategy);
+    }
+    @Test
+    void userChangeStrategyFromInfoToMix() {
+        InfoStrategy infoStrat = new InfoStrategy();
+        User user1 = new User("genericUserName", "genericMail@gmail.com",infoStrat);
+        userRepository.save(user1);
+        MixStrategy mixStrat = new MixStrategy();
+        user1.setStrategy(mixStrat);
+        userRepository.save(user1);
+        Optional<User> recepPersist = userRepository.findById(user1.getId());
+        Assertions.assertEquals("genericUserName",user1.get().getUsername());
+        Assertions.assertEquals("genericMail@gmail.com",user1.get().getMail());
+        Assertions.assertTrue(user1.get().getStrategy() instanceof MixStrategy);
+    }
+    @Test
+    void userChangeStrategyFromMixToRecipe() {
+        MixStrategy mixStrat = new MixStrategy();
+        User user1 = new User("genericUserName", "genericMail@gmail.com",mixStrat);
+        userRepository.save(user1);
+        RecipeStrategy recipeStrat = new RecipeStrategy();
+        user1.setStrategy(recipeStrat);
+        userRepository.save(user1);
+        Optional<User> recepPersist = userRepository.findById(user1.getId());
+        Assertions.assertEquals("genericUserName",user1.get().getUsername());
+        Assertions.assertEquals("genericMail@gmail.com",user1.get().getMail());
+        Assertions.assertTrue(user1.get().getStrategy() instanceof RecipeStrategy);
+    }
+    @Test
+    void userChangeStrategyFromMixToRecipe() {
+        UserAnonim user1 = new UserAnonim();
+        Assertions.assertTrue(user1.getStrategy() instanceof MixStrategy);
     }
 }
