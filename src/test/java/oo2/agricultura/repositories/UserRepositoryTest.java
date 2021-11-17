@@ -7,68 +7,86 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.Optional;
 
 @DataJpaTest
+@Rollback(value = false)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class UserRepositoryTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private LoginUserRepository userRepository;
+    @Autowired
+    private StrategyRepository strategyRepository;
 
     @Test
     void userWithStrategy() {
-        RecipeStrategy recpStrat = new RecipeStrategy();
-        User user1 = new User("genericUserName", "genericMail@gmail.com",recpStrat);
+        intializeStategies();
+        Optional<Strategy> recpStrat = strategyRepository.findById(new Long(2));
+        LoginUser user1 = new LoginUser("genericUserName", "genericMail@gmail.com",recpStrat.get());
         userRepository.save(user1);
-        Optional<User> recepPersist = userRepository.findById(user1.getId());
+        Optional<LoginUser> recepPersist = userRepository.findById(user1.getId());
+        Strategy strat = recepPersist.get().getStrategy();
         Assertions.assertEquals("genericUserName",recepPersist.get().getUsername());
         Assertions.assertEquals("genericMail@gmail.com",recepPersist.get().getMail());
-        Assertions.assertTrue(recepPersist.get().getStrategy() instanceof RecipeStrategy);
+        Assertions.assertTrue(strat instanceof RecipeStrategy);
     }
     @Test
     void userChangeStrategyFromRecipeToInfo() {
-        RecipeStrategy recpStrat = new RecipeStrategy();
-        User user1 = new User("genericUserName", "genericMail@gmail.com",recpStrat);
+        intializeStategies();
+        Optional<Strategy> recpStrat = strategyRepository.findById(new Long(2));
+        LoginUser user1 = new LoginUser("genericUserName", "genericMail@gmail.com",recpStrat.get());
         userRepository.save(user1);
-        InfoStrategy infoStrat = new InfoStrategy();
-        user1.setStrategy(infoStrat);
+        Optional<Strategy> infoStrat = strategyRepository.findById(new Long(3));
+        user1.setStrategy(infoStrat.get());
         userRepository.save(user1);
-        Optional<User> recepPersist = userRepository.findById(user1.getId());
-        Assertions.assertEquals("genericUserName",user1.get().getUsername());
-        Assertions.assertEquals("genericMail@gmail.com",user1.get().getMail());
-        Assertions.assertTrue(user1.get().getStrategy() instanceof InfoStrategy);
+        Optional<LoginUser> recepPersist = userRepository.findById(user1.getId());
+        Strategy strat = recepPersist.get().getStrategy();
+        Assertions.assertEquals("genericUserName",user1.getUsername());
+        Assertions.assertEquals("genericMail@gmail.com",user1.getMail());
+        Assertions.assertTrue(strat instanceof InfoStrategy);
     }
     @Test
     void userChangeStrategyFromInfoToMix() {
-        InfoStrategy infoStrat = new InfoStrategy();
-        User user1 = new User("genericUserName", "genericMail@gmail.com",infoStrat);
+        intializeStategies();
+        Optional<Strategy> infoStrat = strategyRepository.findById(new Long(3));
+        LoginUser user1 = new LoginUser("genericUserName", "genericMail@gmail.com",infoStrat.get());
         userRepository.save(user1);
-        MixStrategy mixStrat = new MixStrategy();
-        user1.setStrategy(mixStrat);
+        Optional<Strategy> mixStrat = strategyRepository.findById(new Long(1));
+        user1.setStrategy(mixStrat.get());
         userRepository.save(user1);
-        Optional<User> recepPersist = userRepository.findById(user1.getId());
-        Assertions.assertEquals("genericUserName",user1.get().getUsername());
-        Assertions.assertEquals("genericMail@gmail.com",user1.get().getMail());
-        Assertions.assertTrue(user1.get().getStrategy() instanceof MixStrategy);
+        Optional<LoginUser> recepPersist = userRepository.findById(user1.getId());
+        Strategy strat = recepPersist.get().getStrategy();
+        Assertions.assertEquals("genericUserName",user1.getUsername());
+        Assertions.assertEquals("genericMail@gmail.com",user1.getMail());
+        Assertions.assertTrue(strat instanceof MixStrategy);
     }
     @Test
     void userChangeStrategyFromMixToRecipe() {
-        MixStrategy mixStrat = new MixStrategy();
-        User user1 = new User("genericUserName", "genericMail@gmail.com",mixStrat);
+        intializeStategies();
+        Optional<Strategy> mixStrat = strategyRepository.findById(new Long(1));
+        LoginUser user1 = new LoginUser("genericUserName", "genericMail@gmail.com",mixStrat.get());
         userRepository.save(user1);
-        RecipeStrategy recipeStrat = new RecipeStrategy();
-        user1.setStrategy(recipeStrat);
+        Optional<Strategy> recipeStrat = strategyRepository.findById(new Long(2));
+        user1.setStrategy(recipeStrat.get());
         userRepository.save(user1);
-        Optional<User> recepPersist = userRepository.findById(user1.getId());
-        Assertions.assertEquals("genericUserName",user1.get().getUsername());
-        Assertions.assertEquals("genericMail@gmail.com",user1.get().getMail());
-        Assertions.assertTrue(user1.get().getStrategy() instanceof RecipeStrategy);
+        Optional<LoginUser> recepPersist = userRepository.findById(user1.getId());
+        Strategy strat = recepPersist.get().getStrategy();
+        Assertions.assertEquals("genericUserName",user1.getUsername());
+        Assertions.assertEquals("genericMail@gmail.com",user1.getMail());
+        Assertions.assertTrue(strat instanceof RecipeStrategy);
     }
-    @Test
-    void userChangeStrategyFromMixToRecipe() {
-        UserAnonim user1 = new UserAnonim();
-        Assertions.assertTrue(user1.getStrategy() instanceof MixStrategy);
+
+    private void intializeStategies(){
+        if (strategyRepository.findAll().size() == 0) {
+            RecipeStrategy recipeStrategy = new RecipeStrategy("Recipes");
+            MixStrategy mixStrategy = new MixStrategy("Mix");
+            InfoStrategy infoStrategy = new InfoStrategy("Information");
+            strategyRepository.save(mixStrategy);
+            strategyRepository.save(recipeStrategy);
+            strategyRepository.save(infoStrategy);
+        }
     }
 }
