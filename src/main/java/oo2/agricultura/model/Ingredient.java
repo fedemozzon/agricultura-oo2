@@ -2,10 +2,8 @@ package oo2.agricultura.model;
 
 import javax.persistence.*;
 
-
-import java.util.List;
- @Table(name = "Ingredients")
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,11 +24,11 @@ public class Ingredient {
 
     }
 
-     public String getName() {
-         return name;
-     }
+    public String getName() {
+        return name;
+    }
 
-     public Ingredient(String name) {
+    public Ingredient(String name) {
         this.name = name;
     }
 }

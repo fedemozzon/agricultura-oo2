@@ -2,41 +2,31 @@ package oo2.agricultura.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
-@Table(name = "recipe")
 @Entity
 public class Recipe  extends  Ingredient{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
     @OneToMany
-    private List<Ingredient> ingredientes;
+    private List<Ingredient> ingredients;
 
-    public Recipe(String name, List<Ingredient> ingredientes) {
+    public Recipe(String name, List<Ingredient> ingredients) {
         super(name);
-        this.ingredientes = ingredientes;
+        this.ingredients = ingredients;
     }
 
     public Recipe() {
 
     }
-
-    public List<Ingredient> getIngredientes() {
-        return ingredientes;
+    public void addIngredient(Ingredient ingredient){
+        this.ingredients.add(ingredient);
+    }
+    public void cleanIngredients(){
+        ingredients.clear();
     }
 
-    @Override
-    public String getName() {
-        return super.getName();
+    public List<Ingredient> getIngredients() {
+        return ingredients;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
