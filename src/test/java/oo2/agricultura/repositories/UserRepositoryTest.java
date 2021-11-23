@@ -1,7 +1,7 @@
 package oo2.agricultura.repositories;
 
 
-import oo2.agricultura.model.Recipe;
+import oo2.agricultura.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +80,7 @@ class UserRepositoryTest {
     }
 
     private void intializeStategies(){
+        int num = strategyRepository.findAll().size();
         if (strategyRepository.findAll().size() == 0) {
             RecipeStrategy recipeStrategy = new RecipeStrategy("Recipes");
             MixStrategy mixStrategy = new MixStrategy("Mix");

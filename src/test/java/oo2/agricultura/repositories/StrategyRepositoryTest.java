@@ -1,8 +1,6 @@
 package oo2.agricultura.repositories;
 
-import oo2.agricultura.model.Ingredient;
-import oo2.agricultura.model.Recipe;
-import oo2.agricultura.model.Vegetal;
+import oo2.agricultura.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
