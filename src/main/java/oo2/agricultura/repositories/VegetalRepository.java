@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VegetalRepository extends JpaRepository<Vegetal, Long> {
 
-
 }

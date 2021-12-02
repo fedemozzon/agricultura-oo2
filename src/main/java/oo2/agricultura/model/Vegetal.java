@@ -18,7 +18,6 @@ public class Vegetal extends Ingredient {
     }
 
     public Vegetal() {
-
     }
 
     public String getLinkToWikipedia() {
